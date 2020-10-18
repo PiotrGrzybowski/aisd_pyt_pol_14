@@ -38,7 +38,7 @@ def bubble_sort_2(values: List[Any]) -> None:
 
 
 if __name__ == '__main__':
-    length = 10000
+    length = 100
     ordered_list = generate_ordered_list(length)
     reversed_list = generate_reversed_list(length)
     random_list = generate_random_list(length, 0, 10)
