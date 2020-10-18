@@ -94,5 +94,15 @@ class LinkedList(List[T]):
         else:
             raise IndexError("list index out of range")
 
-    def __setitem__(self, index: int, element: T) -> None:
-        pass
+    def __setitem__(self, index: int, value: T) -> None:
+        i = 0
+        pointer = self.head
+
+        while pointer is not None and i < index:
+            pointer = pointer.next
+            i += 1
+
+        if pointer is not None and i == index:
+            pointer.value = value
+        else:
+            raise IndexError(f'pop index out of range')
