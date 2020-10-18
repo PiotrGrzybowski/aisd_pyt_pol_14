@@ -110,7 +110,7 @@ def simulate(algorithm: SortingAlgorithm, max_length):
 
 if __name__ == '__main__':
     algorithm = BubbleSort()
-    simulate(algorithm, 100)
+    simulate(algorithm, 1000)
 
 
 
