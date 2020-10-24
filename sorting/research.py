@@ -2,6 +2,9 @@ import json
 import sys
 from abc import ABC, abstractmethod
 from typing import Any, List
+import random
+
+from tqdm import tqdm
 
 from sorting.algorithms import generate_ordered_list, generate_reversed_list, generate_random_list
 
@@ -59,6 +62,8 @@ class BubbleSort(SortingAlgorithm):
 
 class QuickSort(SortingAlgorithm):
     def partition(self, values: List[Any], left: int, right: int) -> int:
+        pivot_index = random.randint(left, right)
+        values[right], values[pivot_index] = values[pivot_index], values[right]
         pivot = values[right]
         j = left - 1
 
@@ -117,7 +122,7 @@ def simulate(algorithm: SortingAlgorithm, max_length):
         REVERSED: {}
     }
 
-    for length in range(1, max_length + 1):
+    for length in tqdm(range(1, max_length + 1)):
         ordered_list = generate_ordered_list(length)
         algorithm.sort(ordered_list)
         result[ORDERED][length] = algorithm.comparisons
@@ -137,17 +142,16 @@ def simulate(algorithm: SortingAlgorithm, max_length):
 
 if __name__ == '__main__':
     algorithm = QuickSort()
-    simulate(algorithm, 1000)
+    simulate(algorithm, 2000)
 
     # length = 1000
     # ordered_list = generate_ordered_list(length)
     # reversed_list = generate_reversed_list(length)
-    # random_list = generate_random_list(length, 0, 10)
+    # random_list = generate_random_list(length, 0, 10000)
     #
     # experiment_list = random_list
-    # print(experiment_list)
+    # print(ordered_list)
     # algorithm = QuickSort()
     # algorithm.sort(experiment_list)
     # print(experiment_list)
-    # print(algorithm.comparisons)
-    # print(algorithm.__class__.__name__)
+
