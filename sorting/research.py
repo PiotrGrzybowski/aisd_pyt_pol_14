@@ -1,9 +1,11 @@
 import json
-
+import sys
 from abc import ABC, abstractmethod
+from typing import Any, List
 
 from sorting.algorithms import generate_ordered_list, generate_reversed_list, generate_random_list
 
+sys.setrecursionlimit(1500)
 REVERSED = 'reversed'
 ORDERED = 'ordered'
 RANDOM = 'random'
@@ -34,7 +36,7 @@ class SortingAlgorithm(ABC):
         return value_1 == value_2
 
     @abstractmethod
-    def sort(self, values):
+    def sort(self, values: List[Any]) -> None:
         pass
 
 
@@ -53,6 +55,31 @@ class BubbleSort(SortingAlgorithm):
                     swap_occurred = True
 
             n += 1
+
+
+class QuickSort(SortingAlgorithm):
+    def partition(self, values: List[Any], left: int, right: int) -> int:
+        pivot = values[right]
+        j = left - 1
+
+        for i in range(left, right):
+            if self.lt(values[i], pivot):
+                j += 1
+                values[i], values[j] = values[j], values[i]
+        j += 1
+        values[j], values[right] = values[right], values[j]
+        return j
+
+    def sort(self, values: List[Any]) -> None:
+        self.comparisons = 0
+
+        def sort_help(left: int, right: int) -> None:
+            if self.lt(left, right):
+                index = self.partition(values, left, right)
+                sort_help(left, index - 1)
+                sort_help(index + 1, right)
+
+        sort_help(0, len(values) - 1)
 
 
 def simulate(algorithm: SortingAlgorithm, max_length):
@@ -109,13 +136,8 @@ def simulate(algorithm: SortingAlgorithm, max_length):
 
 
 if __name__ == '__main__':
-    algorithm = BubbleSort()
+    algorithm = QuickSort()
     simulate(algorithm, 1000)
-
-
-
-
-
 
     # length = 1000
     # ordered_list = generate_ordered_list(length)
@@ -123,7 +145,9 @@ if __name__ == '__main__':
     # random_list = generate_random_list(length, 0, 10)
     #
     # experiment_list = random_list
-    # algorithm = BubbleSort()
+    # print(experiment_list)
+    # algorithm = QuickSort()
     # algorithm.sort(experiment_list)
+    # print(experiment_list)
     # print(algorithm.comparisons)
     # print(algorithm.__class__.__name__)
