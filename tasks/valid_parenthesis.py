@@ -31,3 +31,5 @@ if __name__ == '__main__':
 
     case = "))) ((("
     print(f'{case}, {is_expression_valid(case)}')
+
+
