@@ -106,3 +106,27 @@ class LinkedList(List[T]):
             pointer.value = value
         else:
             raise IndexError(f'pop index out of range')
+
+    def index(self, element: T) -> int:
+        result = -1
+        pointer = self.head
+        index = 0
+        while pointer and result == -1:
+            if pointer.value == element:
+                result = index
+            pointer = pointer.next
+            index += 1
+
+        if result == -1:
+            raise ValueError(f'{str(element)} is not in list')
+        else:
+            return result
+
+    def contains(self, element: T) -> bool:
+        try:
+            return self.index(element) > -1
+        except ValueError:
+            return False
+
+    def __contains__(self, element: T) -> bool:
+        return self.contains(element)

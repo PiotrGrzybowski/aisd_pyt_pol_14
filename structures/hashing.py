@@ -18,9 +18,18 @@ class NaiveHashFunction(HashFunction):
 
 class PrimeHashFunction(HashFunction):
     def __init__(self):
-        self.hashes = {}
+        self.hashes = {
+            str: self.hash_string
+        }
+
     def hash(self, value: Any) -> int:
-        pass
+        return self.hashes[type(value)](value)
 
     def hash_string(self, value: str) -> int:
-        pass
+        result = 7
+        prime = 31
+
+        for sign in value:
+            result = result * prime + ord(sign)
+
+        return result
