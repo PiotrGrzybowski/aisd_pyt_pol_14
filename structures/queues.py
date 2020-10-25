@@ -102,3 +102,4 @@ class FifoQueue(AbstractQueue[T]):
 
 if __name__ == '__main__':
     pass
+"()()((("
