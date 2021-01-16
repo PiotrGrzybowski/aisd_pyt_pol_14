@@ -1,10 +1,11 @@
 import json
 import sys
-from abc import ABC, abstractmethod
-from typing import Any, List
-import random
 
+import random
+from abc import ABC, abstractmethod
 from tqdm import tqdm
+from typing import Any, List
+
 
 from sorting.algorithms import generate_ordered_list, generate_reversed_list, generate_random_list
 
